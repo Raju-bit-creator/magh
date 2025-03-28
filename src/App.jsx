@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import "./App.css";
 import Navbar from "./components/Navbar";
 import Alert from "./components/Alert";
+import { ToastContainer, toast } from "react-toastify";
 
 function App() {
   //state react hook
@@ -17,16 +18,22 @@ function App() {
       message: message,
       type: type,
     });
+    setTimeout(() => {
+      setAlert(null);
+    }, 2000);
   };
+  const notify = () => toast("Wow so easy!");
   const toggleButton = () => {
-    if (text == "Dark mode") {
+    if (mode == "light") {
       setText("Light mode");
       setMode("dark");
-      showAlert("dark Mode has been enabled", "success");
+      showAlert("dark Mode has been enabled", "danger");
+      toast.success("dark Mode has been enabled");
     } else {
       setText("Dark mode");
       setMode("light");
       showAlert("light Mode has been enabled", "success");
+      toast.success("light Mode has been enabled");
     }
   };
 
@@ -46,6 +53,8 @@ function App() {
 
   return (
     <>
+      <ToastContainer />
+      <button onClick={notify}>Notify!</button>
       <Navbar
         title={title}
         toggleButton={toggleButton}
