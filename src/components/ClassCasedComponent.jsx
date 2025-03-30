@@ -17,18 +17,17 @@ export default class ClassCasedComponent extends Component {
     console.log("Component did update");
   }
   //component should update
-  shouldComponentUpdate(nextProps, nextState) {
-    console.log("Should component update");
-  }
+  shouldComponentUpdate(nextProps, nextState) {}
 
   // unmounting
+
+  handleClick = () => {
+    this.setState({ count: this.state.count + 1 });
+  };
   render() {
     return (
       <div>
-        <button
-          className="btn btn-primary"
-          onClick={() => this.setState({ count: this.state.count + 1 })}
-        >
+        <button className="btn btn-primary" onClick={handleClick}>
           Click me !!
         </button>
         <p>Count: {this.state.count}</p>
