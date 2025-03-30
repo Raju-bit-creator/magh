@@ -6,4 +6,4 @@ let d = 6;
 
 export default name;
 // export default { a, b, c, d, name };
-export { a };
+export { a, b, c, d };

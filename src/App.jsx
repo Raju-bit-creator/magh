@@ -4,6 +4,8 @@ import "./App.css";
 import Navbar from "./components/Navbar";
 import Alert from "./components/Alert";
 import { ToastContainer, toast } from "react-toastify";
+import ClassCasedComponent from "./components/ClassCasedComponent";
+import FunctionBased from "./components/FunctionBased";
 
 function App() {
   //state react hook
@@ -63,7 +65,9 @@ function App() {
         mode={mode}
       />{" "}
       {/* passing props */}
-      <Alert alert={alert} />{" "}
+      <Alert alert={alert} />
+      <ClassCasedComponent />
+      <FunctionBased />
       <div>
         <button onClick={handleIncrement}>Increment</button>
         <p>total count: {count}</p>
