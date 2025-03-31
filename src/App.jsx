@@ -6,6 +6,7 @@ import Alert from "./components/Alert";
 import { ToastContainer, toast } from "react-toastify";
 import ClassCasedComponent from "./components/ClassCasedComponent";
 import FunctionBased from "./components/FunctionBased";
+import Signup from "./components/Signup";
 
 function App() {
   //state react hook
@@ -66,7 +67,8 @@ function App() {
       />{" "}
       {/* passing props */}
       <Alert alert={alert} />
-      <ClassCasedComponent />
+      {/* <ClassCasedComponent /> */}
+      <Signup />
       <FunctionBased />
       <div>
         <button onClick={handleIncrement}>Increment</button>
