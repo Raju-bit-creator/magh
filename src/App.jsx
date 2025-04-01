@@ -4,9 +4,11 @@ import "./App.css";
 import Navbar from "./components/Navbar";
 import Alert from "./components/Alert";
 import { ToastContainer, toast } from "react-toastify";
-import ClassCasedComponent from "./components/ClassCasedComponent";
-import FunctionBased from "./components/FunctionBased";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Signup from "./components/Signup";
+import Login from "./components/Login";
+import Home from "./components/Home";
+import Footer from "./components/Footer";
 
 function App() {
   //state react hook
@@ -56,29 +58,23 @@ function App() {
 
   return (
     <>
-      <ToastContainer />
-      <button onClick={notify}>Notify!</button>
-      <Navbar
-        title={title}
-        toggleButton={toggleButton}
-        text={text}
-        submit={submit}
-        mode={mode}
-      />{" "}
-      {/* passing props */}
-      <Alert alert={alert} />
-      {/* <ClassCasedComponent /> */}
-      <Signup />
-      <FunctionBased />
-      <div>
-        <button onClick={handleIncrement}>Increment</button>
-        <p>total count: {count}</p>
-      </div>
-      <h1>thsi is my first projects</h1>
-      <div className="card">
-        <button onClick={handleDecrement}>Decrement</button>
-        <p>total count: {count1}</p>
-      </div>
+      <Router>
+        <ToastContainer />
+        <Navbar
+          title={title}
+          toggleButton={toggleButton}
+          text={text}
+          submit={submit}
+          mode={mode}
+        />{" "}
+        <Alert alert={alert} />
+        <Routes>
+          <Route path="/" element={<Home />}></Route>
+          <Route path="/login" element={<Login />}></Route>
+          <Route path="/signup" element={<Signup />}></Route>
+        </Routes>
+        <Footer />
+      </Router>
     </>
   );
 }
