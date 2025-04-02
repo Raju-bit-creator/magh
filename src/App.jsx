@@ -9,6 +9,7 @@ import Signup from "./components/Signup";
 import Login from "./components/Login";
 import Home from "./components/Home";
 import Footer from "./components/Footer";
+import Aboutus from "./components/About-us";
 
 function App() {
   //state react hook
@@ -72,6 +73,7 @@ function App() {
           <Route path="/" element={<Home />}></Route>
           <Route path="/login" element={<Login />}></Route>
           <Route path="/signup" element={<Signup />}></Route>
+          <Route path="/about" element={<Aboutus />}></Route>
         </Routes>
         <Footer />
       </Router>
