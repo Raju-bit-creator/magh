@@ -10,6 +10,8 @@ import Login from "./components/Login";
 import Home from "./components/Home";
 import Footer from "./components/Footer";
 import Aboutus from "./components/About-us";
+import UserList from "./components/UserList";
+import UserDetail from "./components/UserDetail";
 
 function App() {
   //state react hook
@@ -74,6 +76,8 @@ function App() {
           <Route path="/login" element={<Login />}></Route>
           <Route path="/signup" element={<Signup />}></Route>
           <Route path="/about" element={<Aboutus />}></Route>
+          <Route path="/user-list" element={<UserList />}></Route>
+          <Route path="/:id/:name/:occupation" element={<UserDetail />}></Route>
         </Routes>
         <Footer />
       </Router>
