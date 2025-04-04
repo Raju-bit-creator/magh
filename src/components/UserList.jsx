@@ -10,9 +10,10 @@ const UserList = () => {
   ];
   const handleUser = (id, name, occupation) => {
     navigate(`/${id}/${name}/${occupation}`);
+    console.log("user id: ", id);
   };
   return (
-    <div>
+    <div className="container">
       <h4>This is user list:</h4>
       <ul>
         {users.map((user) => {
@@ -23,6 +24,8 @@ const UserList = () => {
               onClick={() => handleUser(user._id, user.name, user.occupation)}
             >
               {user.name}
+              <br></br>
+              {user.occupation}
             </li>
           );
         })}
