@@ -12,6 +12,7 @@ import Footer from "./components/Footer";
 import Aboutus from "./components/About-us";
 import UserList from "./components/UserList";
 import UserDetail from "./components/UserDetail";
+import ProductState from "./context/ProductState";
 
 function App() {
   //state react hook
@@ -61,26 +62,31 @@ function App() {
 
   return (
     <>
-      <Router>
-        <ToastContainer />
-        <Navbar
-          title={title}
-          toggleButton={toggleButton}
-          text={text}
-          submit={submit}
-          mode={mode}
-        />{" "}
-        <Alert alert={alert} />
-        <Routes>
-          <Route path="/" element={<Home />}></Route>
-          <Route path="/login" element={<Login />}></Route>
-          <Route path="/signup" element={<Signup />}></Route>
-          <Route path="/about" element={<Aboutus />}></Route>
-          <Route path="/user-list" element={<UserList />}></Route>
-          <Route path="/:id/:name/:occupation" element={<UserDetail />}></Route>
-        </Routes>
-        <Footer />
-      </Router>
+      <ProductState>
+        <Router>
+          <ToastContainer />
+          <Navbar
+            title={title}
+            toggleButton={toggleButton}
+            text={text}
+            submit={submit}
+            mode={mode}
+          />{" "}
+          <Alert alert={alert} />
+          <Routes>
+            <Route path="/" element={<Home />}></Route>
+            <Route path="/login" element={<Login />}></Route>
+            <Route path="/signup" element={<Signup />}></Route>
+            <Route path="/about" element={<Aboutus />}></Route>
+            <Route path="/user-list" element={<UserList />}></Route>
+            <Route
+              path="/:id/:name/:occupation"
+              element={<UserDetail />}
+            ></Route>
+          </Routes>
+          <Footer />
+        </Router>
+      </ProductState>
     </>
   );
 }
