@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { FaCartShopping } from "react-icons/fa6";
 
 const Navbar = (props) => {
   return (
@@ -83,6 +84,15 @@ const Navbar = (props) => {
                 </Link>
               </li>
             </ul>
+            <button
+              type="button"
+              class="btn mx-4 btn-primary position-relative"
+            >
+              <FaCartShopping />
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                0
+              </span>
+            </button>
             <button className="btn btn-primary" onClick={props.toggleButton}>
               {props.text}
             </button>

@@ -1,13 +1,8 @@
-import React from "react";
+import React, { useReducer } from "react";
 import ProductContext from "./ProductContext";
+import { cartReducer } from "./Reducer";
 
 const ProductState = (props) => {
-  let fruit = {
-    name: "apple",
-    price: 100,
-  };
-  let name = "tshering";
-
   const product = [
     {
       _id: 1,
@@ -23,7 +18,7 @@ const ProductState = (props) => {
       price: 20,
       instock: 4,
     },
-    ,
+
     {
       _id: 3,
       title: "Banana",
@@ -32,9 +27,13 @@ const ProductState = (props) => {
       instock: 5,
     },
   ];
+  const [state, dispatch] = useReducer(cartReducer, {
+    products: product,
+    cart: [],
+  });
 
   return (
-    <ProductContext.Provider value={{ fruit, name, product }}>
+    <ProductContext.Provider value={{ product, dispatch, state }}>
       {props.children}
     </ProductContext.Provider>
   );
