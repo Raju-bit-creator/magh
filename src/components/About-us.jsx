@@ -6,11 +6,13 @@ import Card from "../assets/card.jpg";
 const Aboutus = () => {
   const context = useContext(productContext);
   let {
+    product,
     state: { cart, products },
     dispatch,
   } = context;
   console.log("this is state", products);
   console.log("this is cart", cart);
+  console.log("this is product", product);
 
   return (
     <div>
@@ -28,14 +30,28 @@ const Aboutus = () => {
                     <p className="card-text">{item.description}</p>
                     <p className="card-text">{item.price}</p>
 
-                    <button
-                      onClick={() =>
-                        dispatch({ type: "ADD_TO_CART", payload: item })
-                      }
-                      className="btn btn-primary"
-                    >
-                      Add to cart
-                    </button>
+                    {cart && cart.some((p) => p._id === item._id) ? (
+                      <button
+                        onClick={() =>
+                          dispatch({
+                            type: "REMOVE_FROM_CART",
+                            payload: item,
+                          })
+                        }
+                        className="btn btn-danger"
+                      >
+                        Remove form cart
+                      </button>
+                    ) : (
+                      <button
+                        onClick={() =>
+                          dispatch({ type: "ADD_TO_CART", payload: item })
+                        }
+                        className="btn btn-primary"
+                      >
+                        Add to cart
+                      </button>
+                    )}
                   </div>
                 </div>
               </div>

@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import SmallHero from "./constant/SmallHero";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate();
   const [credentail, setCredential] = useState({
     email: "",
     password: "",
@@ -9,16 +11,26 @@ const Login = () => {
 
   const handleSubmit = async () => {
     try {
-      const response = await fetch("api");
-      if (response) {
-        console.log(response);
-      }
-      const data = response.json();
+      const response = await fetch("http://localhost:5000/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await response.json();
       console.log(data);
+
+      if (response) {
+        localStorage.setItem("token", data.authToken);
+        navigate("/");
+      }
 
       console.log(credentail);
     } catch (error) {
       console.error(error);
+      // alert("error occured");
     }
   };
   const handleChange = (e) => {
