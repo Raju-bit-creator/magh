@@ -74,6 +74,7 @@ function App() {
             mode={mode}
           />{" "}
           <Alert alert={alert} />
+          {/* router  */}
           <Routes>
             <Route path="/" element={<Home />}></Route>
             <Route path="/login" element={<Login />}></Route>
