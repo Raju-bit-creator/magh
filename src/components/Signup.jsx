@@ -11,16 +11,29 @@ const Signup = () => {
 
   const handleSubmit = async () => {
     try {
-      const response = await fetch("api");
-      if (response) {
-        console.log(response);
-      }
-      const data = response.json();
+      const response = await fetch(
+        "http://localhost:5000/api/auth/createuser",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ name, email, password }),
+        }
+      );
+
+      const data = await response.json();
       console.log(data);
+
+      if (response) {
+        localStorage.setItem("token", data.authToken);
+        navigate("/");
+      }
 
       console.log(credentail);
     } catch (error) {
       console.error(error);
+      // alert("error occured");
     }
   };
   const handleChange = (e) => {

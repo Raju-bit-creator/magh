@@ -13,6 +13,7 @@ import Aboutus from "./components/About-us";
 import UserList from "./components/UserList";
 import UserDetail from "./components/UserDetail";
 import ProductState from "./context/ProductState";
+import CartItems from "./components/CartItems";
 
 function App() {
   //state react hook
@@ -83,6 +84,7 @@ function App() {
               path="/:id/:name/:occupation"
               element={<UserDetail />}
             ></Route>
+            <Route path="/cartitems" element={<CartItems />}></Route>
           </Routes>
           <Footer />
         </Router>

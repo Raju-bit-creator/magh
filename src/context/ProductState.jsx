@@ -16,7 +16,7 @@ const ProductState = (props) => {
       title: "Grapes",
       description: "Grapes is good for health",
       price: 20,
-      instock: 4,
+      instock: 10,
     },
 
     {
