@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import SmallHero from "./constant/SmallHero";
 import productContext from "../context/ProductContext";
 import Card from "../assets/card.jpg";
@@ -11,6 +11,7 @@ const Aboutus = () => {
     product,
     state: { cart, products, message },
     dispatch,
+    allProduct,
   } = context;
 
   const [menuVisible, setMenuVisible] = useState({});
@@ -42,6 +43,10 @@ const Aboutus = () => {
     console.log("save edit product");
     // editProduct(selectedProduct._id, updateData)
   };
+  useEffect(() => {
+    console.log("use effect");
+    allProduct();
+  }, []);
 
   return (
     <div>
@@ -71,7 +76,7 @@ const Aboutus = () => {
                         {menuVisible[item._id] && (
                           <div className="menu-options">
                             <button
-                              className="btn btn-warning"
+                              className="btn btn-warning mx-3"
                               onClick={() => openEditModal(item)}
                             >
                               Edit

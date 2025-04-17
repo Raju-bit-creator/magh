@@ -82,6 +82,7 @@ const EditProductModal = ({ product, onClose, onSave }) => {
           </div>
         </div>
       </div>
+      <div className="modal-backdrop fade show"></div>
     </>
   );
 };
