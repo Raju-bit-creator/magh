@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 
 const Addproduct = () => {
   const [product, setProduct] = useState({
@@ -11,7 +12,35 @@ const Addproduct = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    alert("Product Added");
+    const formData = new FormData();
+    formData.append("title", product.title);
+    formData.append("description", product.description);
+    formData.append("price", product.price);
+    formData.append("instock", product.instock);
+    if (product.image) {
+      formData.append("myfile", product.image);
+    }
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/api/product/addproduct",
+        formData
+        // {
+        //   headers: {
+        //     "auth-token": "your token here",
+        //   },
+        // }
+      );
+      console.log("response data", response.data);
+      setProduct({
+        title: "",
+        description: "",
+        price: "",
+        image: "",
+        instock: "",
+      });
+    } catch (error) {
+      console.error("error", error);
+    }
   };
 
   const handleChange = (e) => {
@@ -28,7 +57,7 @@ const Addproduct = () => {
   return (
     <>
       <div className="container">
-        <form encType="multipart/form-data" onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit}>
           <div className="mb-3">
             <label for="exampleFormControlInput1" className="form-label">
               Title
@@ -94,7 +123,9 @@ const Addproduct = () => {
               id="formFile"
             />
           </div>
-          <div className="btn btn-primary">Submit</div>
+          <button type="submit" className="btn btn-primary">
+            Submit
+          </button>
         </form>
       </div>
     </>

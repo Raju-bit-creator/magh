@@ -7,6 +7,7 @@ const EditProductModal = ({ product, onClose, onSave }) => {
     price: product.price,
     instock: product.instock,
   });
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -39,6 +40,7 @@ const EditProductModal = ({ product, onClose, onSave }) => {
                   <label className="form-label">Description</label>
                   <textarea
                     className="form-control"
+                    name="description"
                     value={formData.description}
                     onChange={handleChange}
                   />
@@ -48,6 +50,7 @@ const EditProductModal = ({ product, onClose, onSave }) => {
                   <input
                     type="number"
                     className="form-control"
+                    name="price"
                     value={formData.price}
                     onChange={handleChange}
                   />
@@ -57,7 +60,8 @@ const EditProductModal = ({ product, onClose, onSave }) => {
                   <input
                     type="number"
                     className="form-control"
-                    checked={formData.instock}
+                    name="instock"
+                    value={formData.instock}
                     onChange={handleChange}
                   />
                 </div>

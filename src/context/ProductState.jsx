@@ -32,6 +32,7 @@ const ProductState = (props) => {
     cart: [],
   });
 
+  //get all product
   const allProduct = async () => {
     const response = await fetch(
       "http://localhost:5000/api/product/getallproduct",
@@ -45,6 +46,32 @@ const ProductState = (props) => {
     );
     const parseData = await response.json();
     console.log(parseData);
+  };
+
+  //edit product
+  const editProduct = async (updateData) => {
+    const { title, description, price, instock } = updateData; //destructuring
+    try {
+      const response = await fetch(
+        "http://localhost:5000/api/product/addproduct",
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            "auth-token": "eyJhbGciOiJIUzI1NiIsInR",
+          },
+          body: JSON.stringify({ title, description, price, instock }),
+        }
+      );
+      if ((!response, ok)) {
+        console.log("Error");
+      }
+      const data = await response.json();
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+      throw new Error("failed to update product");
+    }
   };
 
   return (
