@@ -12,6 +12,8 @@ const Aboutus = () => {
     state: { cart, products, message },
     dispatch,
     allProduct,
+    editProduct,
+    deleteProduct,
   } = context;
 
   const [menuVisible, setMenuVisible] = useState({});
@@ -27,21 +29,21 @@ const Aboutus = () => {
   const openEditModal = (product) => {
     console.log("editing the product");
     setSelectedProduct(product);
-    console.log("editign product", product);
+    console.log("editign product", product._id);
 
     setModalVisible(true);
   };
-  const handleDelete = (id) => {
+  const handleDelete = async (id) => {
     console.log("deleting the product");
-    // await deleteProduct(id)
+    await deleteProduct(id);
   };
   const closeEditModal = () => {
     setModalVisible(false);
     setSelectedProduct(null);
   };
   const saveEdit = (updateData) => {
-    console.log("save edit product");
-    // editProduct(selectedProduct._id, updateData)
+    // console.log("save edit product");
+    editProduct(selectedProduct._id, updateData);
   };
   useEffect(() => {
     console.log("use effect");

@@ -49,11 +49,11 @@ const ProductState = (props) => {
   };
 
   //edit product
-  const editProduct = async (updateData) => {
+  const editProduct = async (selectedProduct_id, updateData) => {
     const { title, description, price, instock } = updateData; //destructuring
     try {
       const response = await fetch(
-        "http://localhost:5000/api/product/addproduct",
+        `http://localhost:5000/api/product/updateproduct/${selectedProduct_id}`,
         {
           method: "PUT",
           headers: {
@@ -74,8 +74,41 @@ const ProductState = (props) => {
     }
   };
 
+  //delete product
+  const deleteProduct = async (id) => {
+    try {
+      const response = await fetch(
+        `http://localhost:5000/api/product/deleteproduct/${id}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            "auth-token": "eyJhbGciOiJIUzI1NiIsInR",
+          },
+        }
+      );
+      if (!response.ok) {
+        console.log("Error");
+        throw new Error(response.statusText);
+      }
+      console.log("product deleted successfully");
+    } catch (error) {
+      console.log("internal server error", error);
+      throw new Error("failed to delete product");
+    }
+  };
+
   return (
-    <ProductContext.Provider value={{ product, dispatch, allProduct, state }}>
+    <ProductContext.Provider
+      value={{
+        product,
+        dispatch,
+        allProduct,
+        editProduct,
+        deleteProduct,
+        state,
+      }}
+    >
       {props.children}
     </ProductContext.Provider>
   );

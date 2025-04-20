@@ -49,7 +49,7 @@ const Addproduct = () => {
         ...product,
         [e.target.name]: e.target.files[0],
       });
-      console.log(e.target.files[0]);
+      console.log("upload file", e.target.files[0]);
     } else {
       setProduct({ ...product, [e.target.name]: e.target.value });
     }
