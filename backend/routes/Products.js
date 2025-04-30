@@ -8,9 +8,9 @@ const router = express.Router();
 //   res.send("hello product router");
 // });
 
-router.get("/getproduct", async (req, res) => {
+router.get("/getproduct", fetchUser, async (req, res) => {
   try {
-    const products = await Product.find({ user: req.user.id });
+    const products = await Product.find({});
     res.json(products);
   } catch (error) {
     res.status(500).send("internal server error", error);
@@ -31,9 +31,8 @@ router.post(
     body("instock").isNumeric().withMessage("Instock  must be number"),
   ],
   async (req, res) => {
-    console.log("req body", req.body);
-
     try {
+      const { title, description, price, instock } = req.body;
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
