@@ -7,10 +7,17 @@ const router = express.Router();
 // router.get("/", (req, res) => {
 //   res.send("hello product router");
 // });
-
-router.get("/getproduct", fetchUser, async (req, res) => {
+router.get("/getallproduct", fetchUser, async (req, res) => {
   try {
     const products = await Product.find({});
+    res.json(products);
+  } catch (error) {
+    res.status(500).send("internal server error", error);
+  }
+});
+router.get("/getproduct", fetchUser, async (req, res) => {
+  try {
+    const products = await Product.find({ user: req.user.id });
     res.json(products);
   } catch (error) {
     res.status(500).send("internal server error", error);
@@ -52,5 +59,33 @@ router.post(
     }
   }
 );
+
+//update product
+
+router.put("/updateproduct/:id", fetchUser, async (req, res) => {
+  const { title, description, price, instock } = req.body; //destructuring
+  try {
+    const newProduct = {};
+    if (title) newProduct.title = title;
+    if (description) newProduct.description = description;
+    if (price) newProduct.price = price;
+    if (instock) newProduct.instock = instock;
+    let product = await Product.findById(req.params.id);
+    if (!product) {
+      return res.status(404).send("product not found");
+    }
+    if (!product.user || product.user.toString() !== req.user.id) {
+      return res.status(401).send("not authorized");
+    }
+    product = await Product.findByIdAndUpdate(
+      req.params.id,
+      { $set: newProduct },
+      { new: true }
+    );
+    res.json(product);
+  } catch (error) {
+    res.status(500).send("internal server error", error);
+  }
+});
 
 module.exports = router;
