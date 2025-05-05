@@ -8,9 +8,11 @@ const Login = () => {
     email: "",
     password: "",
   });
-
-  const handleSubmit = async () => {
+  // const base_url = process.env.API_URL;
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     try {
+      const { email, password } = credentail;
       const response = await fetch("http://localhost:5000/api/auth/login", {
         method: "POST",
         headers: {

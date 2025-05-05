@@ -23,12 +23,12 @@ const Addproduct = () => {
     try {
       const response = await axios.post(
         "http://localhost:5000/api/product/addproduct",
-        formData
-        // {
-        //   headers: {
-        //     "auth-token": "your token here",
-        //   },
-        // }
+        formData,
+        {
+          headers: {
+            "auth-token": localStorage.getItem("token"),
+          },
+        }
       );
       console.log("response data", response.data);
       setProduct({

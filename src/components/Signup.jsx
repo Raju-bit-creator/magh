@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import SmallHero from "./constant/SmallHero";
+import { useNavigate } from "react-router-dom";
+
+// const base_url = process.env.API_URL;
 
 const Signup = () => {
+  const navigate = useNavigate();
   const [credentail, setCredential] = useState({
     name: "",
     email: "",
@@ -9,8 +13,10 @@ const Signup = () => {
     cpassword: "",
   });
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     try {
+      const { name, email, password } = credentail;
       const response = await fetch(
         "http://localhost:5000/api/auth/createuser",
         {
@@ -27,7 +33,7 @@ const Signup = () => {
 
       if (response) {
         localStorage.setItem("token", data.authToken);
-        navigate("/");
+        navigate("/login");
       }
 
       console.log(credentail);
