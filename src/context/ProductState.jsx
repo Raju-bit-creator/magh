@@ -1,32 +1,9 @@
-import React, { useReducer } from "react";
+import React, { useReducer, useState } from "react";
 import ProductContext from "./ProductContext";
 import { cartReducer } from "./Reducer";
 
 const ProductState = (props) => {
-  const product = [
-    {
-      _id: 1,
-      title: "Apple",
-      description: "apple is good for health",
-      price: 10,
-      instock: 4,
-    },
-    {
-      _id: 2,
-      title: "Grapes",
-      description: "Grapes is good for health",
-      price: 20,
-      instock: 10,
-    },
-
-    {
-      _id: 3,
-      title: "Banana",
-      description: "Banana is good for health",
-      price: 30,
-      instock: 5,
-    },
-  ];
+  const [product, setProduct] = useState("");
   const [state, dispatch] = useReducer(cartReducer, {
     products: product,
     cart: [],
@@ -35,16 +12,17 @@ const ProductState = (props) => {
   //get all product
   const allProduct = async () => {
     const response = await fetch(
-      "http://localhost:5000/api/product/getallproduct",
+      "http://localhost:5000/api/product/getproduct",
       {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6I",
+          "auth-token": localStorage.getItem("token"),
         },
       }
     );
     const parseData = await response.json();
+    setProduct(parseData);
     console.log(parseData);
   };
 
@@ -58,7 +36,7 @@ const ProductState = (props) => {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
-            "auth-token": "eyJhbGciOiJIUzI1NiIsInR",
+            "auth-token": localStorage.getItem("token"),
           },
           body: JSON.stringify({ title, description, price, instock }),
         }
@@ -83,7 +61,7 @@ const ProductState = (props) => {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",
-            "auth-token": "eyJhbGciOiJIUzI1NiIsInR",
+            "auth-token": localStorage.getItem("token"),
           },
         }
       );

@@ -15,6 +15,7 @@ const Aboutus = () => {
     editProduct,
     deleteProduct,
   } = context;
+  console.log("this is backend product", product);
 
   const [menuVisible, setMenuVisible] = useState({});
   const [modalVisible, setModalVisible] = useState(false);
@@ -65,73 +66,82 @@ const Aboutus = () => {
         </h4>
 
         <div className="row">
-          {products.map((item) => {
-            return (
-              <div key={item._id} className="col-md-4">
-                <div className="card">
-                  <img src={Card} className="card-img-top" alt="coding image" />
-                  <div className="card-body">
-                    <div className="d-flex justify-content-between">
-                      <h5 className="card-title">{item.title}</h5>
-                      <div className="d-flex">
-                        <BsThreeDots onClick={() => toggleMenu(item._id)} />
-                        {menuVisible[item._id] && (
-                          <div className="menu-options">
-                            <button
-                              className="btn btn-warning mx-3"
-                              onClick={() => openEditModal(item)}
-                            >
-                              Edit
-                            </button>
-                            <button
-                              className="btn btn-danger"
-                              onClick={() => handleDelete(item._id)}
-                            >
-                              Delete
-                            </button>
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                    <p className="card-text">{item.description}</p>
-                    <p className="card-text">{item.price}</p>
-
-                    {cart && cart.some((p) => p._id === item._id) ? (
-                      <button
-                        onClick={() =>
-                          dispatch({
-                            type: "REMOVE_FROM_CART",
-                            payload: item,
-                          })
-                        }
-                        className="btn btn-danger"
-                      >
-                        Remove form cart
-                      </button>
-                    ) : (
-                      <button
-                        onClick={() =>
-                          dispatch({ type: "ADD_TO_CART", payload: item })
-                        }
-                        className="btn btn-primary"
-                      >
-                        Add to cart
-                      </button>
-                    )}
-                  </div>
-                </div>
-                {modalVisible &&
-                  selectedProduct &&
-                  selectedProduct._id === item._id && (
-                    <EditProductModal
-                      product={selectedProduct}
-                      onClose={closeEditModal}
-                      onSave={saveEdit}
+          {product &&
+            product.map((item) => {
+              return (
+                <div key={item._id} className="col-md-4">
+                  <div className="card">
+                    <img
+                      src={
+                        item.image?.[0]
+                          ? `http://localhost:5000/uploads/${item.image[0]}`
+                          : Card
+                      }
+                      className="card-img-top"
+                      alt="coding image"
                     />
-                  )}
-              </div>
-            );
-          })}
+                    <div className="card-body">
+                      <div className="d-flex justify-content-between">
+                        <h5 className="card-title">{item.title}</h5>
+                        <div className="d-flex">
+                          <BsThreeDots onClick={() => toggleMenu(item._id)} />
+                          {menuVisible[item._id] && (
+                            <div className="menu-options">
+                              <button
+                                className="btn btn-warning mx-3"
+                                onClick={() => openEditModal(item)}
+                              >
+                                Edit
+                              </button>
+                              <button
+                                className="btn btn-danger"
+                                onClick={() => handleDelete(item._id)}
+                              >
+                                Delete
+                              </button>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                      <p className="card-text">{item.description}</p>
+                      <p className="card-text">{item.price}</p>
+
+                      {cart && cart.some((p) => p._id === item._id) ? (
+                        <button
+                          onClick={() =>
+                            dispatch({
+                              type: "REMOVE_FROM_CART",
+                              payload: item,
+                            })
+                          }
+                          className="btn btn-danger"
+                        >
+                          Remove form cart
+                        </button>
+                      ) : (
+                        <button
+                          onClick={() =>
+                            dispatch({ type: "ADD_TO_CART", payload: item })
+                          }
+                          className="btn btn-primary"
+                        >
+                          Add to cart
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                  {modalVisible &&
+                    selectedProduct &&
+                    selectedProduct._id === item._id && (
+                      <EditProductModal
+                        product={selectedProduct}
+                        onClose={closeEditModal}
+                        onSave={saveEdit}
+                      />
+                    )}
+                </div>
+              );
+            })}
         </div>
       </div>
     </div>
