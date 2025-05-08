@@ -76,7 +76,7 @@ const EditProductModal = ({ product, onClose, onSave }) => {
                   <button
                     type="button"
                     className="btn btn-primary"
-                    onClick={onSave}
+                    onClick={() => onSave(formData)}
                   >
                     Save
                   </button>

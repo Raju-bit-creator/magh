@@ -10,9 +10,9 @@ const ProductState = (props) => {
   });
 
   //get all product
-  const allProduct = async () => {
+  const allProduct = async (searchQuery = "") => {
     const response = await fetch(
-      "http://localhost:5000/api/product/getproduct",
+      `http://localhost:5000/api/product/getallproduct?searchQuery=${searchQuery}`,
       {
         method: "GET",
         headers: {
@@ -26,12 +26,12 @@ const ProductState = (props) => {
     console.log(parseData);
   };
 
-  //edit product
-  const editProduct = async (selectedProduct_id, updateData) => {
-    const { title, description, price, instock } = updateData; //destructuring
+  // edit product
+  const editProduct = async (selectedProduct, updateData) => {
+    const { title, description, price, instock } = updateData;
     try {
       const response = await fetch(
-        `http://localhost:5000/api/product/updateproduct/${selectedProduct_id}`,
+        `http://localhost:5000/api/product/updateproduct/${selectedProduct}`,
         {
           method: "PUT",
           headers: {
@@ -41,14 +41,15 @@ const ProductState = (props) => {
           body: JSON.stringify({ title, description, price, instock }),
         }
       );
-      if ((!response, ok)) {
-        console.log("Error");
+      if (!response.ok) {
+        throw new Error(response.statusText);
       }
       const data = await response.json();
+      allProduct();
       console.log(data);
     } catch (error) {
-      console.log(error);
-      throw new Error("failed to update product");
+      console.error("internal server error", error);
+      throw new Error("failed to update item");
     }
   };
 
@@ -70,6 +71,7 @@ const ProductState = (props) => {
         throw new Error(response.statusText);
       }
       console.log("product deleted successfully");
+      allProduct();
     } catch (error) {
       console.log("internal server error", error);
       throw new Error("failed to delete product");

@@ -4,8 +4,11 @@ import productContext from "../context/ProductContext";
 import Card from "../assets/card.jpg";
 import { BsThreeDots } from "react-icons/bs";
 import EditProductModal from "./EditProductModal";
+import { useParams } from "react-router-dom";
 
 const Aboutus = () => {
+  const params = useParams();
+  const searchQuery = params;
   const context = useContext(productContext);
   let {
     product,
@@ -43,13 +46,13 @@ const Aboutus = () => {
     setSelectedProduct(null);
   };
   const saveEdit = (updateData) => {
-    // console.log("save edit product");
+    console.log("edit product", updateData);
     editProduct(selectedProduct._id, updateData);
   };
   useEffect(() => {
-    console.log("use effect");
-    allProduct();
-  }, []);
+    // console.log("use effect");
+    allProduct(searchQuery);
+  }, [searchQuery]);
 
   return (
     <div>

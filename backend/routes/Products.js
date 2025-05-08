@@ -9,7 +9,15 @@ const router = express.Router();
 // });
 router.get("/getallproduct", fetchUser, async (req, res) => {
   try {
-    const products = await Product.find({});
+    const searchQuery = req.query.searchQuery
+      ? {
+          title: {
+            $regex: req.query.searchQuery,
+            $options: "i",
+          },
+        }
+      : {};
+    const products = await Product.find({ ...searchQuery });
     res.json(products);
   } catch (error) {
     res.status(500).send("internal server error", error);
@@ -72,6 +80,7 @@ router.post(
 
 router.put("/updateproduct/:id", fetchUser, async (req, res) => {
   const { title, description, price, instock } = req.body; //destructuring
+  console.log("this is req.boyd", req.body);
 
   try {
     const newProduct = {};

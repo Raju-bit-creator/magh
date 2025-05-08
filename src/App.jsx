@@ -15,6 +15,7 @@ import UserDetail from "./components/UserDetail";
 import ProductState from "./context/ProductState";
 import CartItems from "./components/CartItems";
 import Addproduct from "./components/Addproduct";
+import SearchResult from "./components/SearchResult";
 
 function App() {
   //state react hook
@@ -88,6 +89,10 @@ function App() {
             ></Route>
             <Route path="/cartitems" element={<CartItems />}></Route>
             <Route path="/add-product" element={<Addproduct />}></Route>
+            <Route
+              path="/search/:searchQuery"
+              element={<SearchResult />}
+            ></Route>
           </Routes>
           <Footer />
         </Router>

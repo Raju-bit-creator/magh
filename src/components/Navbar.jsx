@@ -1,17 +1,30 @@
-import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { FaCartShopping } from "react-icons/fa6";
 import productContext from "../context/ProductContext";
 
 const Navbar = (props) => {
+  const navigate = useNavigate();
+  const { searchQuery, setSearchQuery } = useState("");
   const context = useContext(productContext);
   let {
     state: { cart },
   } = context;
+  const handleSearchChange = (event) => {
+    setSearchQuery(event.target.value);
+  };
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    if (searchQuery) {
+      navigate(`/search/${searchQuery}`);
+    } else {
+      navigate("/");
+    }
+  };
   return (
     <div>
       <nav
-        className={`navbar navbar-expand-lg navbar-${props.mode} bg-${props.mode}`}
+        className={`navbar navbar-expand-lg fixed-top navbar-${props.mode} bg-${props.mode}`}
       >
         {/* template literal  */}
         <div className="container-fluid">
@@ -89,13 +102,26 @@ const Navbar = (props) => {
                 </Link>
               </li>
             </ul>
+            <form onSubmit={handleSearchSubmit} className="d-flex">
+              <input
+                className="form-control me-2"
+                value={searchQuery}
+                onChange={handleSearchChange}
+                type="search"
+                placeholder="Search"
+                aria-label="Search"
+              />
+              <button className="btn btn-outline-success" type="submit">
+                Search
+              </button>
+            </form>
             <Link to="/cartitems">
               <button
                 type="button"
-                class="btn mx-4 btn-primary position-relative"
+                className="btn mx-4 btn-primary position-relative"
               >
                 <FaCartShopping />
-                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                   {cart.length}
                 </span>
               </button>
