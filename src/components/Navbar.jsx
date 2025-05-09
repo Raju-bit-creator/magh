@@ -5,7 +5,7 @@ import productContext from "../context/ProductContext";
 
 const Navbar = (props) => {
   const navigate = useNavigate();
-  const { searchQuery, setSearchQuery } = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
   const context = useContext(productContext);
   let {
     state: { cart },
@@ -15,8 +15,10 @@ const Navbar = (props) => {
   };
   const handleSearchSubmit = (e) => {
     e.preventDefault();
+    console.log("you searched for: ", searchQuery);
     if (searchQuery) {
       navigate(`/search/${searchQuery}`);
+      console.log("you searched for: ", searchQuery);
     } else {
       navigate("/");
     }
@@ -24,7 +26,7 @@ const Navbar = (props) => {
   return (
     <div>
       <nav
-        className={`navbar navbar-expand-lg fixed-top navbar-${props.mode} bg-${props.mode}`}
+        className={`navbar navbar-expand-lg  navbar-${props.mode} bg-${props.mode}`}
       >
         {/* template literal  */}
         <div className="container-fluid">

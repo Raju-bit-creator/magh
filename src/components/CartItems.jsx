@@ -19,7 +19,11 @@ const CartItems = () => {
               <div className="row cart-list">
                 <div className="col-md-2">
                   <img
-                    src={item.image || card}
+                    src={
+                      item.image?.[0]
+                        ? `http://localhost:5000/uploads/${item.image[0]}`
+                        : card
+                    }
                     width={60}
                     height={60}
                     alt={item.name}
